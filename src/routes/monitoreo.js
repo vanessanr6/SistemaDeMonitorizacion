@@ -13,3 +13,11 @@ router.get('/monitoreo_principal', async (req, res) => {
 router.get('/grafica', async (req, res) => {
     res.render('monitoreo/grafica');
     });
+
+router.get('/datos', async (req, res) => {
+    res.render('monitoreo/datos');
+    });
+
+router.get('/configuracion-sensores', async (req, res) => {
+    res.render('monitoreo/configuracion-sensores');
+    });

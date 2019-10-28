@@ -27,6 +27,16 @@
     font-family: 'Jomolhari', serif;
     font-family: 'Open Sans Condensed', sans-serif;
 }
+.title{
+    font-family: 'Jomolhari', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 40px!important;
+    font-weight: bold!important;
+}
+p{
+    font-family: 'Jomolhari', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
 .datos{
     font-family: 'Jomolhari', serif;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -37,4 +47,26 @@
 }
 .container-grafica{
     width: 1200px;
+}
+.container{
+    width: 85%;
+}
+.fa-asterisk{
+    padding-right: 72px!important;
+}
+.fa-trash{
+    margin-top: 10px!important;
+    padding-right: 72px!important;
+    color: red;
+}
+.informacion{
+    font-size: 30px;
+    padding-top: 10px;
+}
+.collection-item{
+    padding-top: 15px!important;
+    padding-bottom: 15px!important;
+}
+.fecha{
+    margin-right: 35px;
 }
