@@ -1,0 +1,40 @@
+.tecnologias{
+    margin-top: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.fab{
+    font-size: 30px;
+}
+.fas{
+    font-size: 30px;
+}
+.nombre-sistema{
+    margin-right: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+@media only screen and (max-width: 600px) {
+    .nombre-sistema {
+      font-size: 15px!important;
+    }
+  }
+.principal{
+    font-family: 'Jomolhari', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.sub-principal{
+    font-family: 'Jomolhari', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.datos{
+    font-family: 'Jomolhari', serif;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.grafica{
+    margin-left: 90px;
+    margin-right: 50px;
+}
+.container-grafica{
+    width: 1200px;
+}
