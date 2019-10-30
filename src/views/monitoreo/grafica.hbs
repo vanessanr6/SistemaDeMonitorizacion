@@ -1,0 +1,15 @@
+{{> barra-nav }}
+{{> config-temp }}
+{{> config-hum }}
+{{> config-dist }}
+
+    <div class="container-grafica">
+        
+        {{> navegacion-privada }}
+        <canvas id="myChart" width="50" height="20" class="grafica"></canvas>
+    </div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="/js/chart-conf.js"></script>
