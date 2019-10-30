@@ -18,6 +18,3 @@ router.get('/datos', async (req, res) => {
     res.render('monitoreo/datos');
     });
 
-router.get('/configuracion-sensores', async (req, res) => {
-    res.render('monitoreo/configuracion-sensores');
-    });

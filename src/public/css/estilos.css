@@ -1,24 +1,4 @@
-.tecnologias{
-    margin-top: 60px;
-    margin-left: 40px;
-    margin-right: 40px;
-}
-.fab{
-    font-size: 30px;
-}
-.fas{
-    font-size: 30px;
-}
-.nombre-sistema{
-    margin-right: 25px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-@media only screen and (max-width: 600px) {
-    .nombre-sistema {
-      font-size: 15px!important;
-    }
-  }
+/* Modificaciones a vistas de monitoreo */
 .principal{
     font-family: 'Jomolhari', serif;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -41,6 +21,36 @@ p{
     font-family: 'Jomolhari', serif;
     font-family: 'Open Sans Condensed', sans-serif;
 }
+.fab{
+    font-size: 30px;
+}
+.fas{
+    font-size: 30px;
+}
+.fa-trash{
+    margin-top: 10px!important;
+    padding-right: 72px!important;
+    color: red;
+}
+.fa-asterisk{
+    padding-right: 72px!important;
+}
+.tecnologias{
+    margin-top: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.nombre-sistema{
+    margin-right: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+@media only screen and (max-width: 600px) {
+    .nombre-sistema {
+      font-size: 15px!important;
+    }
+  }
+
 .grafica{
     margin-left: 90px;
     margin-right: 50px;
@@ -51,14 +61,7 @@ p{
 .container{
     width: 85%;
 }
-.fa-asterisk{
-    padding-right: 72px!important;
-}
-.fa-trash{
-    margin-top: 10px!important;
-    padding-right: 72px!important;
-    color: red;
-}
+
 .informacion{
     font-size: 30px;
     padding-top: 10px;
@@ -69,4 +72,31 @@ p{
 }
 .fecha{
     margin-right: 35px;
+}
+
+
+/* Modificacion a vistas de administracion */
+
+.formulario-clientes{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.fa-eye{
+    font-size: 22px;
+}
+
+.fa-edit{
+    font-size: 22px;
+}
+
+.fa-trash-alt{
+    font-size: 22px;
+}
+.nombre-sistema-admin{
+    margin-left: 25px;
+    margin-right: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
