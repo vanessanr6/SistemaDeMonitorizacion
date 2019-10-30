@@ -9,6 +9,7 @@ const { database } = require('./keys')
 const passport = require('passport')
 const http = require('http')
 const socket = require('socket.io')
+const SerialPort = require('serialport')
 
 // initializations
 const app = express()
@@ -54,8 +55,11 @@ server.listen(app.get('port'), () => {
   console.log('Server on port', app.get('port'))
 })
 
+io.on('connection', (socket) => {
+  console.log('new socket connected');
+})
+
 //llamar datos del arduino
-const SerialPort = require('serialport')
 const Readline = SerialPort.parsers.Readline
 
 const port = new SerialPort('/dev/ttyS0', {
@@ -63,12 +67,22 @@ const port = new SerialPort('/dev/ttyS0', {
 })
 const parser = port.pipe(new Readline({delimiter: '\r\n'}))
 
-parser.on('open', function() {
+parser.on('open', () => {
   console.log('Connection is opened');
 })
 
-parser.on('data', function(data){
+parser.on('data', (data)=> {
   let temp = parseInt(data, 10)
   console.log("TCL: temp", temp)
   io.emit('data', data.toString())
 })
+
+parser.on('err', () => {
+console.log("TCL: err", err.message)  
+})
+
+{/* <script src="socket.io/socket-io.js"></script>
+<script> const socket = io()</script> 
+socket.on('data', (data) => {
+log(data)
+}*/}
