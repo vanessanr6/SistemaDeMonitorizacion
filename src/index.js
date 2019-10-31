@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM4', {
+const port = new SerialPort('COM6', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -79,11 +79,11 @@ port.on('open', function onOpen() {
 port.pipe(parser) 
 
 
-parser.on('data', (data)=> {
- console.log(`> ${data}`)
+port.on('data', (data)=> {
+ console.log(data.toString())
  
-  io.emit('data', data.toString())
-})
+  io.emit('data', `> ${data}`)
+  })
 
 
 
