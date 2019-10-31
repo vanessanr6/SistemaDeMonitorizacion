@@ -1,3 +1,4 @@
+
 const socket = io();
 
 const temperatureDisplay = document.getElementById('temperature')

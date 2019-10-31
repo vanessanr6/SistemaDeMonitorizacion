@@ -16,3 +16,6 @@ router.get('/lista-clientes', async (req, res) => {
 });
 
 
+router.get('/monitoreo_principal', async (req, res) => {
+    res.render('monitoreo/principal');
+    }); 
