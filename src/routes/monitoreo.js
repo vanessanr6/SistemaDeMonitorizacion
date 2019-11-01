@@ -6,7 +6,7 @@ var Chart = require('chart.js');
 module.exports = router;
 
 // *******************Rutas Para Muestras de Datos****************
-router.get('/monitoreo_principal', async (req, res) => {
+router.get('/principal', async (req, res) => {
     res.render('monitoreo/principal');
     });
 
