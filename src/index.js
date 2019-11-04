@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM4', {
+const port = new SerialPort('COM5', {
   baudRate: 9600
 })
 const parser = new Readline()
