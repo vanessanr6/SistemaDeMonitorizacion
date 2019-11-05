@@ -2,13 +2,17 @@
 {{> navegacion-privada }}
 {{> config-temp }}
 {{> config-hum }}
-
+{{> config-dist }}
 <div class="container">
     <div class="center-align">
     <h1 class="center-align principal">Informe de Registros de Riesgo</h1>
+    <div class="center-align">
+    <h4 id="temperature" class="center-align datos"></h4>
+    <h4 id="temperatura" class="center-align datos"></h4>
+</div>
     </div>
 <ul class="collection">
-    <li class="collection-item avatar">
+    <li class="collection-item avatar" id="dato-riesgo">
         <a href="#!" class=""><i class="fas fa-asterisk"></i></a>
       <span class="title">Temperatura</span>
       <p class="informacion"> <span class="fecha">Fecha: 10/10/10</span>  Evento: Sobre calentamiento Temperatura 50°C 
@@ -33,21 +37,6 @@
   </ul>
 
 </div>
- <!-- Modal Structure -->
-  <div id="modal3" class="modal">
-    <div class="modal-content">
-      <h4>Configuracion de Temperatura de Alerta</h4>
-      <form action="/monitoreo/datos" method="POST">
-       <p>Minimo:</p>
-       <input type="number" class="form-control" name="minimo" id="minimo">
-       <p>Maximo:</p>
-       <input type="number"  class="form-control" name="maximo" id="maximo">
-      
-       <div class="modal-footer">
-            <button class="btn waves-effect waves-green btn-flat">Guardar</button>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        </div>
-      </form>
-    </div>
-  </div>
-        
+
+<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="/js/temperatura.js"></script>

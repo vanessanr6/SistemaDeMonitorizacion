@@ -10,7 +10,6 @@ const passport = require('passport')
 const http = require('http')
 const socket = require('socket.io')
 const SerialPort = require('serialport')
-
 // initializations
 const app = express()
 const server = http.createServer(app)
@@ -57,6 +56,10 @@ server.listen(app.get('port'), () => {
 
 io.on('connection', (socket) => {
   console.log('new socket connected');
+
+  socket.on('minandmax', (datos)=>{
+    console.log(datos.valorminimo);
+  });
 })
 
 //llamar datos del arduino
@@ -89,13 +92,13 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-    console.log(str3);   
+    // console.log(str3);   
   var tempertura=str3[3];
- 
+  
   io.emit('data',tempertura)
   })
 
-
+  
 {/* <script src="socket.io/socket-io.js"></script>
 <script> const socket = io()</script> 
 socket.on('data', (data) => {
