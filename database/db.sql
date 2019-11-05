@@ -47,8 +47,8 @@ MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
 CREATE TABLE cliente_modulo(
 modulo_id INT(11) NOT NULL,
 cliente_id INT(11) NOT NULL,
-min FLOAT NOT NULL,
-max FLOAT NOT NULL
+minimo FLOAT NOT NULL,
+maximo FLOAT NOT NULL
 );
 
 ALTER TABLE cliente_modulo ADD CONSTRAINT fk_modulo1 FOREIGN KEY (modulo_id) references modulos(id);

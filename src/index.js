@@ -28,11 +28,11 @@ app.set('view engine', '.hbs');
 
 //middlewares
 app.use(morgan('dev'))
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // global variables
-app.use((req,res,next) => {
+app.use((req, res, next) => {
   // app.locals.success = req.flash('success')
   // app.locals.message = req.flash('message')
   // app.locals.user = req.user 
@@ -42,8 +42,8 @@ app.use((req,res,next) => {
 
 //routes
 app.use(require('./routes'))
-app.use( require('./routes/authentication'))
-app.use( '/monitoreo',require('./routes/monitoreo'))
+app.use(require('./routes/authentication'))
+app.use('/monitoreo', require('./routes/monitoreo'))
 
 //public
 app.use(express.static(path.join(__dirname, 'public')))
@@ -94,7 +94,7 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
     console.log(str3);   
   var temperatura=str3[3];
   
-  io.emit('data',temperatura)
+  io.emit('dataTemperatura',temperatura)
   })
 
 {/* <script src="socket.io/socket-io.js"></script>

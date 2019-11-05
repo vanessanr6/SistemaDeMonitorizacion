@@ -1,28 +1,33 @@
+const socket = io();
+
 var ctx = document.getElementById('myChart').getContext('2d');
 
-var myChart = new Chart(ctx, {
+var chart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ["Serial"],
         datasets: [{
-            label: 'Temperatura',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Monitoreo de temperatura',
+            fill: false,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
+                'rgb(18, 107, 148)',
             ],
-            borderWidth: 1
+            borderWidth: 2,
+            data: [],
         }]
     },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
+    options: {}
+});
+
+let counter = 0 ;
+socket.on('dataTemperatura', function (dataSerial) {
+  chart.data.labels.push(counter);
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.push(dataSerial.value);
+  });
+  counter++;
+  chart.update();
 });
