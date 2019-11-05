@@ -14,7 +14,6 @@ const SerialPort = require('serialport')
 const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
-
 //settings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -58,14 +57,14 @@ io.on('connection', (socket) => {
   console.log('new socket connected');
 
   socket.on('minandmax', (datos)=>{
-    console.log(datos.valorminimo);
+    console.log(datos.valorminimo + 'dato');
   });
 })
 
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM5', {
+const port = new SerialPort('COM7', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -92,13 +91,12 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-    // console.log(str3);   
-  var tempertura=str3[3];
+    console.log(str3);   
+  var temperatura=str3[3];
   
-  io.emit('data',tempertura)
+  io.emit('data',temperatura)
   })
 
-  
 {/* <script src="socket.io/socket-io.js"></script>
 <script> const socket = io()</script> 
 socket.on('data', (data) => {

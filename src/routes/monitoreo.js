@@ -18,7 +18,7 @@ router.get('/grafica', async (req, res) => {
 
 router.get('/datos', async (req, res) => {
     const minandmax = await pool.query('SELECT * FROM cliente_modulo');
-    console.log(minandmax);
+    // console.log(minandmax);
     res.render('monitoreo/datos', {minandmax});
 });
 
@@ -26,6 +26,7 @@ router.get('/datos', async (req, res) => {
 router.post('/datos', async (req, res) => {
     console.log("entre");
     const { minimo, maximo } = req.body;
+    console.log(req.body);
     const newDatos = {
         modulo_id: 1,
         cliente_id: 1,
