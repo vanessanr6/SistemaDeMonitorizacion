@@ -30,11 +30,11 @@ app.set('view engine', '.hbs');
 
 //middlewares
 app.use(morgan('dev'))
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // global variables
-app.use((req,res,next) => {
+app.use((req, res, next) => {
   // app.locals.success = req.flash('success')
   // app.locals.message = req.flash('message')
   // app.locals.user = req.user 
@@ -44,8 +44,8 @@ app.use((req,res,next) => {
 
 //routes
 app.use(require('./routes'))
-app.use( require('./routes/authentication'))
-app.use( '/monitoreo',require('./routes/monitoreo'))
+app.use(require('./routes/authentication'))
+app.use('/monitoreo', require('./routes/monitoreo'))
 
 //public
 app.use(express.static(path.join(__dirname, 'public')))
@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM4', {
+const port = new SerialPort('COM3', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -76,28 +76,21 @@ port.on('open', function onOpen() {
   console.log("arduino conectado");
 });
 
-port.pipe(parser) 
+port.pipe(parser)
 
 
- port.on('data', function (data) {
-    
-    str = data.toString(); //Convert to string
-    str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
-    str = JSON.stringify(str); // Convert to JSON  
-    var expresionRegular =  /\s*\W\s*/;
-var arrayDatos = str.split(expresionRegular);//se crea el array semparando al encontrar cualquier simbolo que no sea letra o numero
-   str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
-    str3 = JSON.parse(str2); //Then parse it
-   
-    console.log(str3);   
-  var tempertura=str3[3];
- 
-  io.emit('data',tempertura)
-  })
+port.on('data', function (data) {
 
+  str = data.toString(); //Convert to string
+  str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
+  str = JSON.stringify(str); // Convert to JSON  
+  var expresionRegular = /\s*\W\s*/;
+  var arrayDatos = str.split(expresionRegular);//se crea el array semparando al encontrar cualquier simbolo que no sea letra o numero
+  str2 = JSON.stringify(Object.assign({}, arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
+  str3 = JSON.parse(str2); //Then parse it
 
-{/* <script src="socket.io/socket-io.js"></script>
-<script> const socket = io()</script> 
-socket.on('data', (data) => {
-log(data)
-}*/}
+  console.log(str3);
+  var temperatura = str3[3];
+
+  io.emit('dataTemperatura', temperatura)
+})
