@@ -1,29 +1,48 @@
 const socket = io();
-
+var i = 0;
+var myVar;
 const temperatureDisplay = document.getElementById('temperature');
 const valorminimo = document.getElementById('minimo');
 const valormaximo = document.getElementById('maximo');
+
+function myFunction() {
+  myVar = setInterval(alertFunc, 60000);
+}
+
+function alertFunc() {
+  i = 0;
+}
+
 console.log(valorminimo.value, valormaximo.value);
 socket.on('dataTemperatura', (data) => {
-  console.log("TCL: data", data);
   temperature.innerHTML = `${data} C`;
+  if(i != 1){
+    if(data>valormaximo.value){
+      Swal.fire({
+        icon: 'error',
+        title: 'Advertencia',
+        text: 'Temperatura muy alta',
+        timer: 2000
+      })
+      i = 1;
+      myFunction();
+    }
+  }
 
-  if(data>valormaximo.value){
-    Swal.fire({
-      icon: 'error',
-      title: 'Advertencia',
-      text: 'Temperatura muy alta',
-      timer: 2000,
-      footer: '<a href="/monitoreo/grafica">Modificar Limites de intervalo</a>'
-    })
+  if(i != 1){
+    if(data<valorminimo.value){
+      Swal.fire({
+        icon: 'error',
+        title: 'Advertencia',
+        text: 'Temperatura muy baja',
+        timer: 2000
+      })
+      i = 1;
+      
+      myFunction();
+    }
   }
-  if(data<valorminimo.value){
-    Swal.fire({
-      icon: 'error',
-      title: 'Advertencia',
-      text: 'Temperaura muy baja',
-    })
-  }
+  
 
   // fetch('/ajaxdemo', {
   //   method: 'POST',

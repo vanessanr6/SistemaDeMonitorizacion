@@ -8,12 +8,12 @@ module.exports = router;
 
 // *******************Rutas Para Muestras de Datos****************
 
-router.get('/monitoreo_principal', async (req, res) => {
+router.get('/principal', async (req, res) => {
     const minandmax = await pool.query('SELECT * FROM cliente_modulo');
     res.render('monitoreo/principal', {minandmax});
 });
 
-router.post('/monitoreo_principal', async (req, res) => {
+router.post('/principal', async (req, res) => {
     const { minimo, maximo } = req.body;
     const newDatos = {
         modulo_id: 1,
@@ -40,7 +40,7 @@ router.post('/grafica', async (req, res) => {
         maximo
     };
     await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
-    res.redirect('grafica');
+    res.redirect('principal');
 });
 
 // router.get('/datos', async (req, res) => {
