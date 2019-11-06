@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const httpMsgs = require("http-msgs");
+const pool = require('../database');
 module.exports = router;
 
 router.get('/', (req, res) => {
@@ -14,22 +15,22 @@ router.get('/agregar-clientes', async (req, res) => {
 router.get('/lista-clientes', async (req, res) => {
   res.render('administracion/lista-clientes');
 });
+// router.post("/ajaxdemo", async(req, res)=>{
+//   const { modulo_id, cliente_id } = req.body;
+//     console.log(req.body);
+//     const newDatos = {
+//         modulo_id,
+//         cliente_id,
+//         evento: "alta"
+//     };
+//     console.log(newDatos)
 
-router.post("/ajaxdemo", function(req, res){
-  
-  var data = JSON.stringify(req.body);
-data = data.replace(/\r?\\/g, ""); //remove '\r' from this String
-  var expresionRegular =  /\s*","\s*/;
-var arrayDatos = data.split(',')
-var arrayDatos = arrayDatos.replace(/\r?\w/g, "")
-    console.log( arrayDatos[0] );
-   var cliente = data[0]
-  // console.log(arrayDatos)
+//   // await pool.query('INSERT reportes set ?', [newDatos]);
+//   httpMsgs.sendJSON(req, res, {
+//     from : "Server"
+//   });
+// });
 
-  httpMsgs.sendJSON(req, res, {
-    from : "Server"
-  });
-});
 
 router.get('/monitoreo_principal', async (req, res) => {
     res.render('monitoreo/principal');

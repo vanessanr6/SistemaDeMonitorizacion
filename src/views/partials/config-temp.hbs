@@ -3,7 +3,7 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Configuracion de Temperaturas de Alerta</h4>
-      <form action="/monitoreo/datos" method="post">
+      <form action="/monitoreo/grafica" method="post">
       {{#each minandmax}}
        <p>Minimo:</p>
        <input type="number" class="form-control" name="minimo" id="minimo" value="{{minimo}}">
@@ -17,4 +17,3 @@
       </form>
     </div>
   </div>
-        
