@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM7', {
+const port = new SerialPort('COM5', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -88,17 +88,12 @@ port.pipe(parser)
     str = JSON.stringify(str); // Convert to JSON  
     var expresionRegular =  /\s*\W\s*/;
 var arrayDatos = str.split(expresionRegular);//se crea el array semparando al encontrar cualquier simbolo que no sea letra o numero
+// console.log(arrayDatos)
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-    console.log(str3);   
+    // console.log(str3);   
   var temperatura=str3[3];
   
   io.emit('dataTemperatura',temperatura)
   })
-
-{/* <script src="socket.io/socket-io.js"></script>
-<script> const socket = io()</script> 
-socket.on('data', (data) => {
-log(data)
-}*/}

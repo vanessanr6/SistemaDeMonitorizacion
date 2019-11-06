@@ -1,36 +1,33 @@
-
 const socket = io();
 
 const temperatureDisplay = document.getElementById('temperature');
 const valorminimo = document.getElementById('minimo');
 const valormaximo = document.getElementById('maximo');
 console.log(valorminimo.value, valormaximo.value);
-socket.on('data', (data) => {
+socket.on('dataTemperatura', (data) => {
   console.log("TCL: data", data);
   temperature.innerHTML = `${data} C`;
 
-  
-
-  if(data > valorminimo.value){
-    fetch('/ajaxdemo', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: JSON.stringify({cliente: 1, modulo: 1, min: valorminimo.value, max: valormaximo.value}),
+  fetch('/ajaxdemo', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: {cliente: '1', modulo: '1', minimo: '10', maximo: '11'}
   })
   .then(function(response) {
-      console.log('response =', response);
-      return response.json();
+    console.log('response =', response);
+    return response.json();
   })
   .then(function(data) {
-      console.log('data = ', data);
+    console.log('data = ', data);
   })
   .catch(function(err) {
-      console.error(err);
+    console.error(err);
   });
-    
-  }
+  
+
+  
 
 });
 
@@ -63,4 +60,6 @@ socket.emit('minandmax', {
 //     });
 //   })
 // })
+document.addEventListener("DOMContentLoaded", function(){
 
+})

@@ -19,7 +19,16 @@ var chart = new Chart(ctx, {
             data: [],
         }]
     },
-    options: {}
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 50
+                }
+            }]
+        }
+    }
 });
 
 let counter = 0 ;
