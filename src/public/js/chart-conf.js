@@ -16,7 +16,7 @@ var chart = new Chart(ctx, {
                 'rgb(18, 107, 148)',
             ],
             borderWidth: 2,
-            data: [10,15,20,33,48,69],
+            data: [],
         }]
     },
     options: {
