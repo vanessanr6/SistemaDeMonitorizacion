@@ -6,9 +6,9 @@
       <form action="/monitoreo/grafica" method="post">
       {{#each minandmax}}
        <p>Minimo:</p>
-       <input type="number" class="form-control" name="minimo" id="minimo" value="{{minimo}}">
+       <input type="number" min="1" max="50" class="form-control" name="minimo" id="minimo" value="{{minimo}}">
        <p>Maximo:</p>
-       <input type="number"  class="form-control" name="maximo" id="maximo" value="{{maximo}}">
+       <input type="number" min="1" max="50" class="form-control" name="maximo" id="maximo" value="{{maximo}}">
       {{/each}}
        <div class="modal-footer">
             <button class="btn waves-effect waves-green btn-flat">Guardar</button>

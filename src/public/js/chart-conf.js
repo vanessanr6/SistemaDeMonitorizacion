@@ -33,7 +33,6 @@ var chart = new Chart(ctx, {
 
 let counter = 0 ;
 socket.on('dataTemperatura', function (dataSerial) {
-    console.log(dataSerial)
   chart.data.labels.push(counter);
   chart.data.datasets.forEach(dataset => {
     dataset.data.push(dataSerial);
