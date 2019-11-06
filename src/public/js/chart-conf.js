@@ -16,15 +16,15 @@ var chart = new Chart(ctx, {
                 'rgb(18, 107, 148)',
             ],
             borderWidth: 2,
-            data: [],
+            data: [10,15,20,33,48,69],
         }]
     },
     options: {
         scales: {
             yAxes: [{
                 ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 50
+                    min: 0,
+                    max: 50
                 }
             }]
         }
@@ -41,3 +41,14 @@ socket.on('dataTemperatura', function (dataSerial) {
   counter++;
   chart.update();
 });
+
+setTimeout(function() {
+    $.ajax({
+      url: "",
+      context: document.body,
+      success: function(s,x){
+          $(this).html(s);
+      }
+    });
+  }, 30000);
+  
