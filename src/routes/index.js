@@ -4,8 +4,9 @@ const httpMsgs = require("http-msgs");
 const pool = require('../database');
 module.exports = router;
 
-router.get('/', (req, res) => {
-  res.render('index');
+router.get('/', async (req, res) =>{
+  const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+  res.render('index', {minandmax});
 })
 
 router.get('/agregar-clientes', async (req, res) => {
