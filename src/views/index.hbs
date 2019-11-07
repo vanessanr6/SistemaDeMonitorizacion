@@ -1,3 +1,8 @@
+{{> barra-nav }}
+{{> navegacion-privada }}
+{{> config-temp }}
+{{> config-hum }}
+{{> config-dist }}
 <main class="index">
 
     <header class="masthead d-flex">
@@ -7,9 +12,12 @@
                  <i class="fas fa-edit"></i>
                 <em>Vamos a la monitorizacion</em>
             </h3>
-            <a href="#" class="btn btn-success">
+            <a href="monitoreo/principal" class="btn btn-success">
                Vamos!
             </a>
         </div>
     </header>
 </main>
+<script src="/js/sweetalert2.min.js"></script>
+<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="/js/temperatura.js"></script>

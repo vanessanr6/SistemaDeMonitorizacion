@@ -1,0 +1,46 @@
+{{> barra-nav-administracion }}
+<div class="container">
+    
+    <div class="card formulario-clientes">
+        <div class="center-align">
+    <h1 class="center-align principal">Registro de Clientes</h1>
+    </div>
+    <form action="#" method="post">
+        <div class="">
+            <input type="text" class="" name="nombre-cliente" placeholder="nombre cliente" autofocus>
+        </div>
+        <div class="">
+            <input type="tel" name="telefono" class="" placeholder="numero telefonico">
+        </div>
+        <div class="">
+            <h4 >Seleccione los Sensores:</h4>
+            <p>
+                <label>
+                    <input type="checkbox" id="check-temperatura" name="check-temperatura" value="temperatura"/>
+                    <span>Sensor de Temperatura</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" id="check-humedad" name="input-humedad" value="humedad"/>
+                    <span>Sensor de Humedad</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" id="check-proximidad" name="check-proximidad" value="distancia"/>
+                    <span>Sensor de Proximidad</span>
+                </label>
+            </p>
+        </div>
+        <div class="right-align">
+            <button class="btn">
+                Guardar
+            </button>
+            <a href="#" class="btn">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+</div>
