@@ -14,6 +14,7 @@ const SerialPort = require('serialport')
 const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
+const pool = require('./database');
 //settings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -58,13 +59,14 @@ io.on('connection', (socket) => {
 
   socket.on('minandmax', (datos)=>{
     console.log(datos.valorminimo + 'dato');
+   
   });
 })
 
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM3', {
+const port = new SerialPort('COM4', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -81,7 +83,7 @@ port.on('open', function onOpen() {
 port.pipe(parser) 
 
 
- port.on('data', function (data) {
+ port.on('data', async function (data) {
     
     str = data.toString(); //Convert to string
     str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
@@ -92,8 +94,28 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-    // console.log(str3);   
+  //  console.log(str3);   
   var temperatura=str3[3];
-  
+  var distancia = str3[7]
   io.emit('dataTemperatura',temperatura)
+
+  const rango = await pool.query('SELECT cliente_modulo.minimo,cliente_modulo.maximo FROM `cliente_modulo`');
+    
+  if(rango[0].minimo>temperatura||rango[0].maximo<temperatura)
+  {
+    port.write("r");  
+    console.log('temperatura fuera del rango')
+    await pool.query("INSERT INTO `reportes`( `cliente_id`, `modulo_ID`, `evento`) VALUES (1,1,'temperatura fuera del rango')");
+  }
+  
+  if (distancia<50) {
+    port.write("a");  
+    console.log('demasiado cerca')
+  } else
+  {
+    port.write("v");
+  }
+  
   })
+
+ 
