@@ -56,7 +56,7 @@ server.listen(app.get('port'), () => {
 io.on('connection', (socket) => {
   console.log('new socket connected');
 
-  socket.on('minandmax', (datos)=>{
+  socket.on('minandmax', (datos) => {
     console.log(datos.valorminimo + 'dato');
   });
 })
@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM5', {
+const port = new SerialPort('COM7', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -78,22 +78,20 @@ port.on('open', function onOpen() {
   console.log("arduino conectado");
 });
 
-port.pipe(parser) 
+port.pipe(parser)
+port.on('data', function (data) {
 
+  str = data.toString(); //Convert to string
+  str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
+  str = JSON.stringify(str); // Convert to JSON  
+  var expresionRegular = /\s*\W\s*/;
+  var arrayDatos = str.split(expresionRegular);//se crea el array semparando al encontrar cualquier simbolo que no sea letra o numero
+  // console.log(arrayDatos)
+  str2 = JSON.stringify(Object.assign({}, arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
+  str3 = JSON.parse(str2); //Then parse it
 
- port.on('data', function (data) {
-    
-    str = data.toString(); //Convert to string
-    str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
-    str = JSON.stringify(str); // Convert to JSON  
-    var expresionRegular =  /\s*\W\s*/;
-var arrayDatos = str.split(expresionRegular);//se crea el array semparando al encontrar cualquier simbolo que no sea letra o numero
-// console.log(arrayDatos)
-   str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
-    str3 = JSON.parse(str2); //Then parse it
-   
-    // console.log(str3);   
-  var temperatura=str3[3];
-  
-  io.emit('dataTemperatura',temperatura)
-  })
+  // console.log(str3);   
+  var temperatura = str3[3];
+
+  io.emit('dataTemperatura', temperatura)
+})
