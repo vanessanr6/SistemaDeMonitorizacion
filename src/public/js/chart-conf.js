@@ -42,12 +42,6 @@ socket.on('dataTemperatura', function (dataSerial) {
 });
 
 setTimeout(function() {
-    $.ajax({
-      url: "",
-      context: document.body,
-      success: function(s,x){
-          $(this).html(s);
-      }
-    });
+    location.reload();
   }, 30000);
   
