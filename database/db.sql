@@ -58,23 +58,23 @@ ALTER TABLE cliente_modulo ADD CONSTRAINT fk_cliente1 FOREIGN KEY (cliente_id) r
 ALTER TABLE cliente_modulo
 ADD PRIMARY KEY(modulo_id, cliente_id);
 
-CREATE TABLE usuarios(
+CREATE TABLE users(
 id INT(11) NOT NULL,
-cliente_id INT(11) NOT NULL,
-nombre VARCHAR(100) NOT NULL,
-contrasenia VARCHAR(50) NOT NULL,
-correo VARCHAR(100) NOT NULL,
-es_admin BOOLEAN NOT NULL,
-es_jefe BOOLEAN NOT NULL
+cliente_id INT(11),
+fullname VARCHAR(100),
+password VARCHAR(500) ,
+username VARCHAR(100) ,
+es_admin BOOLEAN ,
+es_clientePrincipal BOOLEAN
 );
 
-ALTER TABLE usuarios
+ALTER TABLE users
 ADD PRIMARY KEY(id);
 
-ALTER TABLE usuarios
+ALTER TABLE users
 MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE usuarios ADD CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) references clientes(id);
+ALTER TABLE users ADD CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) references clientes(id);
 
 
 
