@@ -4,10 +4,11 @@ USE monitoreodb;
 CREATE TABLE clientes(
 id INT(11) NOT NULL,
 nombre VARCHAR(100) NOT NULL,
+correo VARCHAR(100),
 direccion VARCHAR(100),
 telefono VARCHAR(10),
 rubro VARCHAR(50),
-fecha DATE
+fecha VARCHAR(50),
 );
 
 ALTER TABLE clientes

@@ -1,59 +1,48 @@
 {{> barra-nav-administracion }}
 {{> message }}
+{{#if user}}
 <div class="container">
     <div class="card formulario-clientes">
         <div class="center-align">
-            <h1 class="center-align principal">Lista de Clientes 
-                {{user.fullname}}</h1>
+            <h1 class="center-align principal">Lista de Clientes</h1>
         </div>
         <div class="right-align">
-            <a href="#" class="btn agregar-clientes right-align">Agregar Clientes</a>
+            <a href="/agregar-clientes" class="btn agregar-clientes right-align">Agregar Clientes</a>
         </div>
         <div class="tabla-clientes center-align">
             <table class="centered">
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Dirección</th>
                         <th>Telefono</th>
-                        <th>Sensores</th>
+                        <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
+                    {{#each clientes}}
                     <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>Temperatura</td>
+                        <td>{{nombre}}</td>
+                        <td>{{direccion}}</td>
+                        <td>{{telefono}}</td>
+                        <td>{{fecha}}</td>
                         <td>
-                            <a href="#" class=""><i class="fas fa-eye"></i></a>
-                            <a href="#" class=""><i class="fas fa-edit"></i></a>
-                            <a href="#" class=""><i class="fas fa-trash-alt"></i></a>
+                            <a href="/ver-cliente/{{id}}" class=""><i class="fas fa-eye"></i></a>
+                            {{!-- <a href="#" class=""><i class="fas fa-edit"></i></a> --}}
+                            <a href="/agregar-usuario/{{id}}" class="">
+                                <i class="fas fa-user-plus fa-sm"></i>
+                            </a>
                         </td>
                         
                     </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td>Jellybean</td>
-                        <td>Temperatura <br> Humedad <br> Distancia</td>
-                        <td>
-                            <a href="#" class=""><i class="fas fa-eye"></i></a>
-                            <a href="#" class=""><i class="fas fa-edit"></i></a>
-                            <a href="#" class=""><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
-                        <td>Lollipop</td>
-                        <td>Temperatura <br> Distancia</td>
-                        <td>
-                            <a href="#" class=""><i class="fas fa-eye"></i></a>
-                            <a href="#" class=""><i class="fas fa-edit"></i></a>
-                            <a href="#" class=""><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
+                    {{else}}
+                    <p>Aun no hay clientes en el sistema</p>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+{{/if}}
