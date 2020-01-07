@@ -1,0 +1,45 @@
+{{> barra-nav }}
+{{> navegacion-privada }}
+{{> message }}
+{{#if user}}
+<div class="container">
+    <div class="card formulario-clientes">
+        <div class="center-align">
+            <h1 class="center-align principal">Lista de usuarios</h1>
+        </div>
+        <div class="right-align">
+            <a href="/agregar-usuario" class="btn agregar-clientes right-align">Agregar usuario</a>
+        </div>
+        <div class="tabla-clientes center-align">
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nombre de usuario</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each usuarios}}
+                    <tr>
+                        <td>{{fullname}}</td>
+                        <td>{{username}}</td>
+                       {{#if es_clientePrincipal}}
+                        <td> <b>Si</b> </td>
+                        {{else}}
+                        <td>No</td>
+                        {{/if}} 
+                    </tr>
+                    {{else}}
+                    <p>Aun no hay usuarios</p>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="display:none;" class="">
+            <input type="text" class="" name="id" placeholder="id" value="{{user.id}}">
+        </div>
+</div>
+{{/if}}

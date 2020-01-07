@@ -3,12 +3,23 @@ const router = express.Router();
 
 var Chart = require('chart.js');
 const pool = require('../database');
-
-module.exports = router;
+const { clientIsLoggedIn, clientIsNotLoggedIn } = require('../lib/auth')
 
 // *******************Rutas Para Muestras de Datos****************
 
-router.get('/principal', async (req, res) => {
+router.post('/', clientIsLoggedIn, async (req, res) => {
+    const { minimo, maximo } = req.body;
+    const newDatos = {
+        modulo_id: 1,
+        cliente_id: 1,
+        minimo,
+        maximo
+    };
+    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
+    res.redirect('monitoreo_principal');
+});
+
+router.get('/principal', clientIsLoggedIn,  async (req, res) => {
     const minandmax = await pool.query('SELECT * FROM cliente_modulo');
     res.render('monitoreo/principal', {minandmax});
 });
@@ -62,3 +73,5 @@ router.post('/grafica', async (req, res) => {
 //     await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
 //     res.redirect('datos');
 // });
+
+module.exports = router;

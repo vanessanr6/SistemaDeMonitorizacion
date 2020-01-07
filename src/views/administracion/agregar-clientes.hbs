@@ -5,30 +5,42 @@
         <div class="center-align">
     <h1 class="center-align principal">Registro de Clientes</h1>
     </div>
-    <form action="#" method="post">
+    <form action="/agregar-clientes" method="post">
         <div class="">
-            <input type="text" class="" name="nombre-cliente" placeholder="nombre cliente" autofocus>
+            <input type="text" class="" name="nombre" placeholder="Nombre" required="" autofocus>
         </div>
         <div class="">
-            <input type="tel" name="telefono" class="" placeholder="numero telefonico">
+            <input type="email" class="" name="correo" placeholder="Correo" required="">
+        </div>
+        <div class="">
+            <input type="text" class="" name="direccion" placeholder="Dirección" required="">
+        </div>
+        <div class="">
+            <input type="text" name="telefono" class="" pattern="[0-9]{8}" placeholder="Número telefónico (99999999)" required="">
+        </div>
+        <div class="">
+            <input type="text" name="rubro" class="" placeholder="Rubro" required="">
+        </div>
+        <div class="">
+            <input type="date" name="fecha" class="" placeholder="Fecha" required="">
         </div>
         <div class="">
             <h4 >Seleccione los Sensores:</h4>
             <p>
                 <label>
-                    <input type="checkbox" id="check-temperatura" name="check-temperatura" value="temperatura"/>
+                    <input type="checkbox" id="check-temperatura" name="temperatura" value="temperatura"/>
                     <span>Sensor de Temperatura</span>
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="checkbox" id="check-humedad" name="input-humedad" value="humedad"/>
+                    <input type="checkbox" id="check-humedad" name="humedad" value="humedad"/>
                     <span>Sensor de Humedad</span>
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="checkbox" id="check-proximidad" name="check-proximidad" value="distancia"/>
+                    <input type="checkbox" id="check-proximidad" name="proximidad" value="proximidad"/>
                     <span>Sensor de Proximidad</span>
                 </label>
             </p>
@@ -37,7 +49,7 @@
             <button class="btn">
                 Guardar
             </button>
-            <a href="#" class="btn">
+            <a href="/lista-clientes" class="btn">
                 Cancelar
             </a>
         </div>
