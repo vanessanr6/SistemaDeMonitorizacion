@@ -20,18 +20,18 @@ router.post('/', clientIsLoggedIn, async (req, res) => {
 });
 
 router.get('/principal', clientIsLoggedIn,  async (req, res) => {
-    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    const minandmax = await pool.query('SELECT * FROM `cliente_modulo` WHERE cliente_modulo.modulo_id = ? AND cliente_modulo.cliente_id = ? ',[1,req.user.cliente_id]);
     
     res.render('monitoreo/principal', {minandmax});
 });
 
 router.get('/distancia', clientIsLoggedIn,  async (req, res) => {
-    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    const minandmax = await pool.query('SELECT * FROM `cliente_modulo` WHERE cliente_modulo.modulo_id = ? AND cliente_modulo.cliente_id = ? ',[3,req.user.cliente_id]);
     
     res.render('Distancia/principal', {minandmax});
 });
 router.get('/humedad', clientIsLoggedIn,  async (req, res) => {
-    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    const minandmax = await pool.query('SELECT * FROM `cliente_modulo` WHERE cliente_modulo.modulo_id = ? AND cliente_modulo.cliente_id = ? ',[2,req.user.cliente_id]);
     res.render('Humedad/principal', {minandmax});
 });
 
@@ -56,30 +56,22 @@ router.get('/grafica', async (req, res) => {
 
 router.post('/grafica', async (req, res) => {
     const { minimo, maximo } = req.body;
-    const newDatos = {
-        modulo_id: 1,
-        cliente_id: 1,
-        minimo,
-        maximo
-    };
-    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
-    res.redirect('principal');
+   
+    await pool.query('UPDATE `cliente_modulo` SET `minimo`= ?,`maximo`= ? WHERE `modulo_id` = ? AND `cliente_id` = ?', [minimo,maximo,1, req.user.cliente_id]);
+    
+    res.redirect('grafica');
 });
 router.get('/graficaDist', async (req, res) => {
-    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+   
     res.render('Distancia/grafica', {minandmax});
 });
 
 router.post('/graficaDist', async (req, res) => {
     const { minimo, maximo } = req.body;
-    const newDatos = {
-        modulo_id: 1,
-        cliente_id: 1,
-        minimo,
-        maximo
-    };
-    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
-    res.redirect('principal');
+   
+    await pool.query('UPDATE `cliente_modulo` SET `minimo`= ?,`maximo`= ? WHERE `modulo_id` = ? AND `cliente_id` = ?', [minimo,maximo,3, req.user.cliente_id]);
+    console.log(minimo);
+    res.redirect('distancia');
 });
 router.get('/graficaHume', async (req, res) => {
     const minandmax = await pool.query('SELECT * FROM cliente_modulo');
@@ -88,13 +80,9 @@ router.get('/graficaHume', async (req, res) => {
 
 router.post('/graficaHume', async (req, res) => {
     const { minimo, maximo } = req.body;
-    const newDatos = {
-        modulo_id: 1,
-        cliente_id: 1,
-        minimo,
-        maximo
-    };
-    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
+   
+    await pool.query('UPDATE `cliente_modulo` SET `minimo`= ?,`maximo`= ? WHERE `modulo_id` = ? AND `cliente_id` = ?', [minimo,maximo,2, req.user.cliente_id]);
+   
     res.redirect('principal');
 });
 

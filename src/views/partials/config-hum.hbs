@@ -2,11 +2,13 @@
   <div id="modal2" class="modal">
     <div class="modal-content">
       <h4>Configuracion de porcentajes de Humedad de Alerta</h4>
-      <form action="/monitoreo/datos" method="post">
+      <form action="/monitoreo/graficaHume" method="post">
+       {{#each minandmax}}
        <p>Minimo:</p>
-       <input type="number" class="form-control" name="minimo" id="minimo">
+       <input type="number" min="1" max="50" class="form-control" name="minimo" id="minimo" value="{{minimo}}">
        <p>Maximo:</p>
-       <input type="number"  class="form-control" name="maximo" id="maximo">
+       <input type="number" min="1" max="50" class="form-control" name="maximo" id="maximo" value="{{maximo}}">
+      {{/each}}
       
        <div class="modal-footer">
             <button class="btn waves-effect waves-green btn-flat">Guardar</button>

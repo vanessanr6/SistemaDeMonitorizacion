@@ -109,7 +109,7 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-  console.log(str3);   
+ // console.log(str3);   
   var temperatura=str3[3];
   var distancia = str3[7];
   var humedad = str3[2];

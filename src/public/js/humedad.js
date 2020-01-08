@@ -15,7 +15,7 @@ function alertFunc() {
 
 console.log(valorminimo.value, valormaximo.value);
 socket.on('dataHumedad', (data) => {
-  humedad.innerHTML = `${data} C`;
+  humedad.innerHTML = `${data} %`;
   if(i != 1){
     if(data>valormaximo.value){
       Swal.fire({

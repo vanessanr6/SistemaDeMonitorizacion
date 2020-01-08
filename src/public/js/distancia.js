@@ -15,7 +15,7 @@ function alertFunc() {
 
 console.log(valorminimo.value, valormaximo.value);
 socket.on('dataDistancia', (data) => {
-  distancia.innerHTML = `${data} C`;
+  distancia.innerHTML = `${data} CM`;
   if(i != 1){
     if(data>valormaximo.value){
       Swal.fire({
