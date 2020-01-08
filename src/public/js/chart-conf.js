@@ -41,7 +41,7 @@ socket.on('dataTemperatura', function (dataSerial) {
   chart.update();
 });
 
-setTimeout(function() {
+setTimeout( () => {
     location.reload();
   }, 30000);
   

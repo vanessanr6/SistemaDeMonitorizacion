@@ -10,11 +10,17 @@ const passport = require('passport')
 const http = require('http')
 const socket = require('socket.io')
 const SerialPort = require('serialport')
+const helpers = require('./lib/helpers')
+
 // initializations
 const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
+
 const pool = require('./database');
+
+require('./lib/passport')
+
 //settings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -28,22 +34,34 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 //middlewares
+app.use(session({
+  secret: 'monitorizacion',
+  resave: false,
+  saveUninitialized: false,
+  store: new MySQLStore(database)
+}));
+app.use(flash())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(passport.initialize())
+app.use(passport.session())
+
+
 
 // global variables
-app.use((req, res, next) => {
-  // app.locals.success = req.flash('success')
-  // app.locals.message = req.flash('message')
-  // app.locals.user = req.user 
-  next()
-})
+app.use(async (req, res, next) => {
+  app.locals.message = req.flash('message');
+  app.locals.success = req.flash('success');
+  app.locals.user = req.user
+  next();
+});
 
 
 //routes
 app.use(require('./routes'))
 app.use(require('./routes/authentication'))
+app.use(require('./routes/administracion'))
 app.use('/monitoreo', require('./routes/monitoreo'))
 
 //public

@@ -11,19 +11,37 @@
     <link rel="stylesheet" href="/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="/css/estilos.css">
     <link rel="stylesheet" href="/css/materialize.min.css">
+
+    <style>
+        .icon_style{
+position: absolute;
+right: 10px;
+top: 10px;
+font-size: 20px;
+color: white;
+cursor:pointer; 
+}
+    </style>
 </head>
 <body>
    
    
-
  {{{ body }}}
 <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
           M.AutoInit();
   });
+  const close = document.getElementById("alert_close");
+  if(close){
+  $('#alert_close').click(function(){
+$( "#alert_box" ).fadeOut( "slow", function() {
+});
+});}
     </script>
+
     
 </body>
 </html>

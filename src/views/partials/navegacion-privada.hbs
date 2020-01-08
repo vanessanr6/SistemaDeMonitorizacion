@@ -1,3 +1,4 @@
+{{#if user}}
 <div class="container section">
   <a href="#" class="sidenav-trigger" data-target="menu-side">
     <i class="fas fa-bars"></i>
@@ -9,10 +10,10 @@
           <img src="/images/monitoreo.jpg">
         </div>
         <a href="#name">
-          <span class="white-text name">John Doe</span>
+          <span class="white-text name">{{user.fullname}}</span>
         </a>
         <a href="#email">
-          <span class="white-text email">jdandturk@gmail.com</span>
+          <span class="white-text email">{{user.username}}</span>
         </a>
       </div>
     </li>
@@ -82,12 +83,17 @@
       <div class="divider"></div>
     </li>
     <li><a class="subheader">Configuraciones</a></li>
-    <li><a class="waves-effect" href="#!">Usuarios</a></li>
-    <li><a class="waves-effect" href="#!">Cerrar Sesion</a></li>
+    {{#if user.es_clientePrincipal}}
+    <li><a class="waves-effect" href="/usuarios">Usuarios</a></li>
+    {{/if}}
+    
+    <li><a class="waves-effect" href="/cerrarsesion">Cerrar Sesion</a></li> 
+    
   </ul>
 
 
 
 
 </div>
+{{/if}}
 

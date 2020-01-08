@@ -1,7 +1,18 @@
 <link rel="stylesheet" href="/css/estilos.css">
 <nav class="blue green lighten-1">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo left nombre-sistema-admin ">Sistema de Monitorizacion</a>
+      <a href="#!" class="brand-logo left nombre-sistema-admin ">Sistema de Monitorizacion</a>
+      {{#if user}}
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/logout">Cerrar sesión</a></li>
+      </ul>
+      {{/if}}
     </div>
+    
 </nav>
+
+ <ul class="sidenav" id="mobile-demo">
+    <li><a href="/logout">Cerrar sesión</a></li>
+  </ul>
 

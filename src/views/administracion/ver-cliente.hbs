@@ -1,0 +1,73 @@
+{{> barra-nav-administracion }}
+{{> message }}
+{{#if user}}
+<div class="container">
+    <div class="card formulario-clientes">
+        <div class="center-align">
+            <h1 class="center-align principal">Datos del cliente</h1>
+        </div>
+
+        <strong>Nombre</strong>
+        <p>{{cliente.nombre}}</p>
+        <strong>Correo</strong>
+        <p>{{cliente.correo}}</p>
+        <strong>Dirección</strong>
+        <p>{{cliente.direccion}}</p>
+        <strong>Rubro</strong>
+        <p>{{cliente.rubro}}</p>
+        <strong>Teléfono</strong>
+        <p>{{cliente.telefono}}</p>
+        <strong>Fecha de ingreso</strong>
+        <p>{{cliente.fecha}}</p>
+
+        <div class="tabla-clientes center-align">
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Límite menor</th>
+                        <th>Límite mayor</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each datosCliente}}
+                    <tr>
+                        <td>{{modulo}}</td>
+                        <td>{{minimo}}</td>
+                        <td>{{maximo}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+    </div>
+    <br> <br>
+    <h5>Usuarios del cliente</h5>
+    <div class="tabla-clientes center-align">
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Username</th>
+                        <th>Cliente principal</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each usuariosCliente}}
+                    <tr>
+                        <td>{{fullname}}</td>
+                        <td>{{username}}</td>
+                        {{#if es_clientePrincipal}}
+                        <td> <b>Si</b> </td>
+                        {{else}}
+                        <td>No</td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+{{/if}}

@@ -1,0 +1,45 @@
+{{#if user.es_admin}}
+{{> barra-nav-administracion }}
+{{else}}
+{{> barra-nav }}
+{{> navegacion-privada }}
+{{/if}}
+<div class="container">
+    
+    <div class="card formulario-clientes">
+        <div class="center-align">
+            {{#if user.es_admin}}
+    <h1 class="center-align principal">Registro de usuario para cliente {{cliente.nombre}}</h1>
+    </div>
+    <form action="/agregar-usuario" method="post">
+        <div style="display: none;" class="">
+            <input type="text" class="" name="id_cliente" placeholder="id" value="{{cliente.id}}">
+        </div>
+        {{else}}
+        <h1 class="center-align principal">Registro de usuario</h1>
+    </div>
+    <form action="/agregar-usuario" method="post">
+        <div style="display: none;" class="">
+            <input type="text" class="" name="id_usuario" placeholder="id" value="{{user.id}}">
+        </div>
+        {{/if}}
+        <div class="">
+            <input type="text" class="" name="fullname" placeholder="Nombre" autofocus>
+        </div>
+        <div class="">
+            <input type="text" class="" name="username" placeholder="Username">
+        </div>
+        <div class="">
+            <input type="password" name="password" class="password" placeholder="Contraseña">
+        </div>
+        <div class="right-align">
+            <button class="btn">
+                Guardar
+            </button>
+            <a href="#" class="btn">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+</div>

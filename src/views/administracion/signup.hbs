@@ -1,0 +1,29 @@
+{{> barra-nav-administracion }}
+{{> message }}
+<div class="container">
+    
+    <div class="card formulario-clientes">
+        <div class="center-align">
+    <h1 class="center-align principal">Registro de Administradores</h1>
+    </div>
+    <form action="/signup" method="post">
+        <div class="">
+            <input type="text" class="" name="fullname" placeholder="Nombre" autofocus>
+        </div>
+        <div class="">
+            <input type="text" class="" name="username" placeholder="Username">
+        </div>
+        <div class="">
+            <input type="password" name="password" class="password" placeholder="Contraseña">
+        </div>
+        <div class="right-align">
+            <button class="btn">
+                Guardar
+            </button>
+            <a href="#" class="btn">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+</div>
