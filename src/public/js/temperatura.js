@@ -14,7 +14,7 @@ function alertFunc() {
 }
 
 console.log(valorminimo.value, valormaximo.value);
-socket.on('dataTemperatura', (data) => {
+socket.on('dataDistancia', (data) => {
   temperature.innerHTML = `${data} C`;
   if(i != 1){
     if(data>valormaximo.value){

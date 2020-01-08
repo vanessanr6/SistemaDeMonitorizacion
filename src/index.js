@@ -17,6 +17,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
 const pool = require('./database');
+require('./lib/passport')
 //settings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -108,13 +109,16 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-  //  console.log(str3);   
+  console.log(str3);   
   var temperatura=str3[3];
-  var distancia = str3[7]
+  var distancia = str3[7];
+  var humedad = str3[2];
   io.emit('dataTemperatura',temperatura)
+  io.emit('dataDistancia',distancia)
+  io.emit('dataHumedad',humedad)
 
   const rango = await pool.query('SELECT cliente_modulo.minimo,cliente_modulo.maximo FROM `cliente_modulo`');
-    
+   
   if(rango[0].minimo>temperatura||rango[0].maximo<temperatura)
   {
     port.write("r");  

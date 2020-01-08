@@ -21,7 +21,18 @@ router.post('/', clientIsLoggedIn, async (req, res) => {
 
 router.get('/principal', clientIsLoggedIn,  async (req, res) => {
     const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    
     res.render('monitoreo/principal', {minandmax});
+});
+
+router.get('/distancia', clientIsLoggedIn,  async (req, res) => {
+    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    
+    res.render('Distancia/principal', {minandmax});
+});
+router.get('/humedad', clientIsLoggedIn,  async (req, res) => {
+    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    res.render('Humedad/principal', {minandmax});
 });
 
 router.post('/principal', async (req, res) => {
@@ -33,6 +44,7 @@ router.post('/principal', async (req, res) => {
         maximo
     };
     await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
+    
     res.redirect('monitoreo_principal');
 });
 
@@ -43,6 +55,38 @@ router.get('/grafica', async (req, res) => {
 });
 
 router.post('/grafica', async (req, res) => {
+    const { minimo, maximo } = req.body;
+    const newDatos = {
+        modulo_id: 1,
+        cliente_id: 1,
+        minimo,
+        maximo
+    };
+    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
+    res.redirect('principal');
+});
+router.get('/graficaDist', async (req, res) => {
+    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    res.render('Distancia/grafica', {minandmax});
+});
+
+router.post('/graficaDist', async (req, res) => {
+    const { minimo, maximo } = req.body;
+    const newDatos = {
+        modulo_id: 1,
+        cliente_id: 1,
+        minimo,
+        maximo
+    };
+    await pool.query('UPDATE cliente_modulo set ?', [newDatos]);
+    res.redirect('principal');
+});
+router.get('/graficaHume', async (req, res) => {
+    const minandmax = await pool.query('SELECT * FROM cliente_modulo');
+    res.render('Humedad/grafica', {minandmax});
+});
+
+router.post('/graficaHume', async (req, res) => {
     const { minimo, maximo } = req.body;
     const newDatos = {
         modulo_id: 1,

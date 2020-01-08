@@ -1,0 +1,45 @@
+{{> barra-nav }}
+{{> navegacion-privada }}
+{{> config-temp }}
+{{> config-hum }}
+{{> config-dist }}
+<div class="center-align">
+    <h1 class="center-align principal">Humedad en el aire</h1>
+</div>
+<div class="center-align">
+    <h1 class="center-align sub-principal">Datos obtenidos desde sensor DTH11 + ARDUINO</h1>
+</div>
+<div class="center-align">
+    <h4 id="humedad" class="center-align datos"></h4>
+</div>
+<div class="center-align m4 tecnologias">
+    <div class="row">
+    <div class="descripcion-tecnologia col s12 l4">
+        <i class="fab fa-node-js"></i>
+        <h5>Nodejs</h5>
+        <p>
+            Node.js es un entorno de tiempo de ejecucion multiplaforma, de codigo abierto,
+            para la capa del servidor basado en el lenguaje de programacion js.
+        </p>
+    </div>
+    <div class="descripcion-tecnologia col s12 l4">
+        <i class="fab fa-jsfiddle"></i>
+        <h5>Socket.io</h5>
+        <p>
+            Socket.IO es una biblioteca de JavaScript para aplicaciones web en tiempo real.
+            Permite la comunicación bidireccional en tiempo real entre clientes y servidores web.
+        </p>
+    </div>
+    <div class="descripcion-tecnologia col s12 l4">
+        <i class="fas fa-cog"></i>
+        <h5>Arduino</h5>
+        <p>
+            Placas de desarrollo de hardware para construir dispositivos digitales y
+            dispositivos interactivos que puedan detectar y controlar objetos del mundo real
+        </p>
+    </div>
+</div>
+</div>
+<script src="/js/sweetalert2.min.js"></script>
+<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="/js/humedad.js"></script>
