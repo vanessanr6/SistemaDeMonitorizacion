@@ -15,6 +15,12 @@
             <a href="monitoreo/principal" class="btn btn-success">
                Vamos!
             </a>
+            {{#if user}}
+            {{else}}
+            <a href="/signin" class="btn btn-success">
+               Administrador
+            </a>
+            {{/if}}
         </div>
     </header>
 </main>
