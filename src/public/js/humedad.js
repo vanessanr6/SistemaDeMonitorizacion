@@ -17,26 +17,29 @@ console.log(valorminimo.value, valormaximo.value);
 socket.on('dataHumedad', (data) => {
   humedad.innerHTML = `${data} %`;
   if(i != 1){
-    if(data>valormaximo.value){
-      Swal.fire({
+    if(data<valorminimo.value){
+      location.href ="http://127.0.0.1:4000/f";
+    /*  Swal.fire({
         icon: 'error',
         title: 'Advertencia',
-        text: 'Temperatura muy alta',
+        text: 'Temperatura muy baja',
         timer: 2000
-      })
+      })*/
       i = 1;
+      
       myFunction();
     }
   }
 
   if(i != 1){
     if(data<valorminimo.value){
-      Swal.fire({
+      location.href ="http://127.0.0.1:4000/f";
+    /*  Swal.fire({
         icon: 'error',
         title: 'Advertencia',
         text: 'Temperatura muy baja',
         timer: 2000
-      })
+      })*/
       i = 1;
       
       myFunction();
@@ -66,5 +69,6 @@ socket.on('dataHumedad', (data) => {
 
 socket.emit('minandmax', {
       valorminimo: valorminimo.value,
-      valormaximo: valormaximo.value
+      valormaximo: valormaximo.value,
+      modulo: 2
 });

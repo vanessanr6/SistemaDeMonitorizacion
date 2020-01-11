@@ -13,8 +13,8 @@ int pinLedV = 5;  // pin Rojo del led RGB
 int pinLedA = 6;  // pin Verde del led RGB
 int pinLedR = 7;
 const int pinBuzzer = 9;
-const int tonos[] = {261, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494};
-const int countTonos = 10;
+const int tonos[] = {261, 277, 294, 311, 330, 349};
+const int countTonos = 5;
 void setup(){
   Serial.begin(9600);
   dht.begin();
@@ -70,7 +70,7 @@ data[5] =distancia;
 StaticJsonDocument<200> doc ;
 copyArray(data, doc.to<JsonArray>());
 serializeJson(doc, Serial);
-delay(1000);
+
   if(Serial.available() > 0) // Read from serial port
     {
       char ReaderFromNode; // Store current character
@@ -85,7 +85,13 @@ void convertToState(char chr) {
     analogWrite(pinLedV,155);
   analogWrite(pinLedA, 0);
   analogWrite(pinLedR, 255);
-  delay(100); 
+    for (int iTono = 0; iTono < countTonos; iTono++)
+  {
+   tone(pinBuzzer, tonos[iTono]);
+   delay(1000);
+  }
+  noTone(pinBuzzer);  
+   
   }
   if(chr=='r'){
   analogWrite(pinLedV, 0);
@@ -94,10 +100,10 @@ void convertToState(char chr) {
     for (int iTono = 0; iTono < countTonos; iTono++)
   {
    tone(pinBuzzer, tonos[iTono]);
-   delay(1000);
+  delay(1000);
   }
   noTone(pinBuzzer);  
-    delay(100); 
+    
    
     
   }
@@ -105,13 +111,19 @@ void convertToState(char chr) {
   analogWrite(pinLedV, 255);
   analogWrite(pinLedA, 0);
   analogWrite(pinLedR , 0);
-    delay(100); 
+   
   }
   if(chr=='f'){
-    digitalWrite(pinLedV, LOW);
-    digitalWrite(pinLedA, LOW);
-    digitalWrite(pinLedA, LOW);
-    delay(100); 
+    digitalWrite(pinLedV, 35);
+    digitalWrite(pinLedA, 90);
+    digitalWrite(pinLedR, 74);
+      for (int iTono = 0; iTono < countTonos; iTono++)
+  {
+   tone(pinBuzzer, tonos[iTono]);
+  delay(1000);
+  }
+  noTone(pinBuzzer);  
+    
   }
  
   

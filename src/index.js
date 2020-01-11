@@ -51,6 +51,7 @@ app.use(async (req, res, next) => {
   app.locals.message = req.flash('message');
   app.locals.success = req.flash('success');
   app.locals.user = req.user
+ 
   next();
 });
 
@@ -69,14 +70,6 @@ server.listen(app.get('port'), () => {
   console.log('Server on port', app.get('port'))
 })
 
-io.on('connection', (socket) => {
-  console.log('new socket connected');
-
-  socket.on('minandmax', (datos)=>{
-    console.log(datos.valorminimo + 'dato');
-   
-  });
-})
 
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
@@ -113,27 +106,84 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
   var temperatura=str3[3];
   var distancia = str3[7];
   var humedad = str3[2];
+/////
+io.on('connection', (socket) => {
+  console.log('new socket connected');
+/*
+  socket.on('minandmax', (datos)=>{
+   if(datos.modulo == 1){
+    if(datos.valorminimo>temperatura||datos.valormaximo<temperatura)
+    {
+      port.write("r");  
+      console.log('temperatura fuera del rango')
+     
+    }
+    else
+    {
+      port.write("v");
+    }
+  }else {
+  if(datos.modulo == 2){
+    if (humedad>datos.valormaximo||humedad.valorminimo>distancia) {
+      port.write("f");  
+      console.log('Humedad fuera de rango')
+    } 
+    else
+    {
+      port.write("v");
+    }
+  }else{
+  if(datos.modulo == 3){
+    if (datos.valorminimo>distancia) {
+      port.write("a");  
+      console.log('demasiado cerca'+datos.valorminimo+distancia)
+    } 
+   if(datos.valorminimo<distancia) 
+    {
+      console.log('distancia correcta'+datos.valorminimo+distancia)
+      port.write("v");
+    }
+  }
+}
+}
+  port.write("v");
+  });*/
+})
+
+  /////
   io.emit('dataTemperatura',temperatura)
   io.emit('dataDistancia',distancia)
   io.emit('dataHumedad',humedad)
-
-  const rango = await pool.query('SELECT cliente_modulo.minimo,cliente_modulo.maximo FROM `cliente_modulo`');
+  
+  app.get('/:action', function (req, res) {
+      
+    var action = req.params.action || req.param('action');
+     
+     if(action == 'v'){
+         port.write("v");
+         res.redirect('/');
+     } 
+     if(action == 'f') {
+         port.write("f");
+         res.render('Humedad/advertencia');
+     }
+     if(action == 'a'){
+       port.write("a");
+       res.render('Distancia/advertencia');
+   } 
+   if(action == 'r') {
+       port.write("r");
+       res.render('monitoreo/advertencia');
+       
+   }
    
-  if(rango[0].minimo>temperatura||rango[0].maximo<temperatura)
-  {
-    port.write("r");  
-    console.log('temperatura fuera del rango')
-    await pool.query("INSERT INTO `reportes`( `cliente_id`, `modulo_ID`, `evento`) VALUES (1,1,'temperatura fuera del rango')");
-  }
+     
+    
   
-  if (distancia<50) {
-    port.write("a");  
-    console.log('demasiado cerca')
-  } else
-  {
-    port.write("v");
-  }
-  
+ });
+ 
+   
+ 
   })
 
  

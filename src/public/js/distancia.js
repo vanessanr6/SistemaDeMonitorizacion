@@ -15,28 +15,19 @@ function alertFunc() {
 
 console.log(valorminimo.value, valormaximo.value);
 socket.on('dataDistancia', (data) => {
-  distancia.innerHTML = `${data} CM`;
-  if(i != 1){
-    if(data>valormaximo.value){
-      Swal.fire({
-        icon: 'error',
-        title: 'Advertencia',
-        text: 'Temperatura muy alta',
-        timer: 2000
-      })
-      i = 1;
-      myFunction();
-    }
-  }
+  distancia.innerHTML = `${data} CM`;  
 
   if(i != 1){
-    if(data<valorminimo.value){
-      Swal.fire({
+    var dato = parseInt(data, 10);
+    if(dato < valorminimo.value){
+     console.log('demasiado cerca '+ valorminimo.value + data)
+  location.href ="http://127.0.0.1:4000/a";
+    /*  Swal.fire({
         icon: 'error',
         title: 'Advertencia',
         text: 'Temperatura muy baja',
         timer: 2000
-      })
+      })*/
       i = 1;
       
       myFunction();
@@ -66,5 +57,6 @@ socket.on('dataDistancia', (data) => {
 
 socket.emit('minandmax', {
       valorminimo: valorminimo.value,
-      valormaximo: valormaximo.value
+      valormaximo: valormaximo.value,
+      modulo: 3
 });
