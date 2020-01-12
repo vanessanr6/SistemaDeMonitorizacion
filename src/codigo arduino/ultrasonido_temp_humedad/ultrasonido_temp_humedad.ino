@@ -70,7 +70,6 @@ data[5] =distancia;
 StaticJsonDocument<200> doc ;
 copyArray(data, doc.to<JsonArray>());
 serializeJson(doc, Serial);
-
   if(Serial.available() > 0) // Read from serial port
     {
       char ReaderFromNode; // Store current character
@@ -100,10 +99,12 @@ void convertToState(char chr) {
     for (int iTono = 0; iTono < countTonos; iTono++)
   {
    tone(pinBuzzer, tonos[iTono]);
+
   delay(1000);
   }
   noTone(pinBuzzer);  
     
+
    
     
   }
@@ -124,6 +125,7 @@ void convertToState(char chr) {
   }
   noTone(pinBuzzer);  
     
+
   }
  
   

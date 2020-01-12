@@ -17,6 +17,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
 const pool = require('./database');
+
 require('./lib/passport')
 //settings
 app.set('port', process.env.PORT || 4000)
@@ -109,48 +110,7 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
 /////
 io.on('connection', (socket) => {
   console.log('new socket connected');
-/*
-  socket.on('minandmax', (datos)=>{
-   if(datos.modulo == 1){
-    if(datos.valorminimo>temperatura||datos.valormaximo<temperatura)
-    {
-      port.write("r");  
-      console.log('temperatura fuera del rango')
-     
-    }
-    else
-    {
-      port.write("v");
-    }
-  }else {
-  if(datos.modulo == 2){
-    if (humedad>datos.valormaximo||humedad.valorminimo>distancia) {
-      port.write("f");  
-      console.log('Humedad fuera de rango')
-    } 
-    else
-    {
-      port.write("v");
-    }
-  }else{
-  if(datos.modulo == 3){
-    if (datos.valorminimo>distancia) {
-      port.write("a");  
-      console.log('demasiado cerca'+datos.valorminimo+distancia)
-    } 
-   if(datos.valorminimo<distancia) 
-    {
-      console.log('distancia correcta'+datos.valorminimo+distancia)
-      port.write("v");
-    }
-  }
-}
-}
-  port.write("v");
-  });*/
-})
 
-  /////
   io.emit('dataTemperatura',temperatura)
   io.emit('dataDistancia',distancia)
   io.emit('dataHumedad',humedad)
@@ -183,7 +143,6 @@ io.on('connection', (socket) => {
  });
  
    
- 
   })
 
  
