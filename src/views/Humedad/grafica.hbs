@@ -1,0 +1,18 @@
+{{> barra-nav }}
+{{> config-temp }}
+{{> config-hum }}
+{{> config-dist }}
+
+    <div class="container-grafica">
+        
+        {{> navegacion-privada }}
+        <canvas id="myChart" width="50" height="20" class="grafica"></canvas>
+    </div>
+
+
+
+<script src="/js/Chart.min.js"></script>
+<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="/js/jquery.min.js"></script>   
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/chart-conf-hume.js"></script> 

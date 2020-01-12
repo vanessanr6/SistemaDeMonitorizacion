@@ -16,11 +16,9 @@ const helpers = require('./lib/helpers')
 const app = express()
 const server = http.createServer(app)
 const io = socket.listen(server)
-
 const pool = require('./database');
 
 require('./lib/passport')
-
 //settings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -54,6 +52,7 @@ app.use(async (req, res, next) => {
   app.locals.message = req.flash('message');
   app.locals.success = req.flash('success');
   app.locals.user = req.user
+ 
   next();
 });
 
@@ -72,14 +71,6 @@ server.listen(app.get('port'), () => {
   console.log('Server on port', app.get('port'))
 })
 
-io.on('connection', (socket) => {
-  console.log('new socket connected');
-
-  socket.on('minandmax', (datos) => {
-    console.log(datos.valorminimo + 'dato');
-   
-  });
-})
 
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
@@ -112,28 +103,46 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
    
-  //  console.log(str3);   
+ // console.log(str3);   
   var temperatura=str3[3];
-  var distancia = str3[7]
-  io.emit('dataTemperatura',temperatura)
+  var distancia = str3[7];
+  var humedad = str3[2];
+/////
+io.on('connection', (socket) => {
+  console.log('new socket connected');
 
-  const rango = await pool.query('SELECT cliente_modulo.minimo,cliente_modulo.maximo FROM `cliente_modulo`');
+  io.emit('dataTemperatura',temperatura)
+  io.emit('dataDistancia',distancia)
+  io.emit('dataHumedad',humedad)
+  
+  app.get('/:action', function (req, res) {
+      
+    var action = req.params.action || req.param('action');
+     
+     if(action == 'v'){
+         port.write("v");
+         res.redirect('/');
+     } 
+     if(action == 'f') {
+         port.write("f");
+         res.render('Humedad/advertencia');
+     }
+     if(action == 'a'){
+       port.write("a");
+       res.render('Distancia/advertencia');
+   } 
+   if(action == 'r') {
+       port.write("r");
+       res.render('monitoreo/advertencia');
+       
+   }
+   
+     
     
-  if(rango[0].minimo>temperatura||rango[0].maximo<temperatura)
-  {
-    port.write("r");  
-    console.log('temperatura fuera del rango')
-    await pool.query("INSERT INTO `reportes`( `cliente_id`, `modulo_ID`, `evento`) VALUES (1,1,'temperatura fuera del rango')");
-  }
   
-  if (distancia<50) {
-    port.write("a");  
-    console.log('demasiado cerca')
-  } else
-  {
-    port.write("v");
-  }
-  
+ });
+ 
+   
   })
 
  
