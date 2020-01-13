@@ -1,6 +1,6 @@
 # SistemaDeMonitorizacion
 
-Monitorización de temperatura, humedad y distancia por medio de placa Arduino y utilización de Socket.io para obtener los datos en tiempo real
+Monitorización de temperatura, humedad y distancia por medio de placa Arduino. Utilización de Node JS como servidor y de Socket.io para obtener los datos en tiempo real
 //
 Temperature, humidity and distance monitoring via Arduino board and use of Socket.io to obtain data in real time
 
