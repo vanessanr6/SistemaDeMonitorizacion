@@ -11,7 +11,9 @@ const http = require('http')
 const socket = require('socket.io')
 const SerialPort = require('serialport')
 const helpers = require('./lib/helpers')
-
+var temperatura;
+var distancia;
+var humedad;
 // initializations
 const app = express()
 const server = http.createServer(app)
@@ -75,7 +77,7 @@ server.listen(app.get('port'), () => {
 //llamar datos del arduino
 const Readline = require('@serialport/parser-readline')
 
-const port = new SerialPort('COM4', {
+const port = new SerialPort('COM6', {
   baudRate: 9600
 })
 const parser = new Readline()
@@ -93,7 +95,7 @@ port.pipe(parser)
 
 
  port.on('data', async function (data) {
-    
+  
     str = data.toString(); //Convert to string
     str = str.replace(/\r?\n|\r|/g, ""); //remove '\r' from this String
     str = JSON.stringify(str); // Convert to JSON  
@@ -102,19 +104,45 @@ var arrayDatos = str.split(expresionRegular);//se crea el array semparando al en
 // console.log(arrayDatos)
    str2= JSON.stringify(Object.assign({},arrayDatos));//convierte un json en un array que se puede utilizar en el comando parse
     str3 = JSON.parse(str2); //Then parse it
-   
- // console.log(str3);   
-  var temperatura=str3[3];
-  var distancia = str3[7];
-  var humedad = str3[2];
+  //  console.log(str3);
+  console.log(str3);   
+  temperatura=str3[3];
+  distancia = str3[7];
+  humedad = str3[2];
 /////
-io.on('connection', (socket) => {
+ })
+ io.on('connection', (socket) => {
   console.log('new socket connected');
 
-  io.emit('dataTemperatura',temperatura)
-  io.emit('dataDistancia',distancia)
-  io.emit('dataHumedad',humedad)
   
+  console.log('User Conncetion');
+ 
+  socket.on('Temperatura', function(temp){
+    console.log("Temperatura");  
+    temp['Temperatura']=  temperatura;
+    console.log(temp);   
+    io.emit('Temperatura', temp);
+  });
+  
+  socket.on('Humedad', function(hume){
+    console.log("Humedad");  
+    hume['Humedad']=  humedad;
+    console.log(hume);   
+    io.emit('Temperatura', hume);
+  });
+  
+  socket.on('Distancia', function(dis){
+    console.log("Distancia");  
+    dis['Distancia']=  distancia;
+    console.log(dis);   
+    io.emit('Distancia', dis);
+  });
+   io.emit('dataTemperatura',temperatura)
+  io.emit('dataDistancia',distancia)
+   io.emit('dataHumedad',humedad) 
+   
+    
+   
   app.get('/:action', function (req, res) {
       
     var action = req.params.action || req.param('action');
@@ -135,9 +163,7 @@ io.on('connection', (socket) => {
        port.write("r");
        res.render('monitoreo/advertencia');
        
-   }
-   
-     
+   }     
     
   
  });
@@ -145,4 +171,3 @@ io.on('connection', (socket) => {
    
   })
 
- })
