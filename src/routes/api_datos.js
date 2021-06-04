@@ -289,4 +289,62 @@ app.get("/ubicacion_api_read", async function (req, res) {
     res.send(respuesta);
 });
 
+app.get("/limites_modulos", async function (req, res) {
+
+    const readLimites = {
+        username : "",
+        modulo_id: ""
+    };
+
+    respuesta = {
+        error: false,
+        codigo: 200,
+        mensaje: "",
+    };
+
+    if (
+        req.query.username == null && req.query.modulo_id == null
+    ) {
+        respuesta = {
+            error: true,
+            codigo: 501,
+            mensaje: "Datos indefinidos",
+        };
+        res.status(500).send(respuesta);
+        return false;
+    }
+
+    //Asignando datos user
+    readLimites.username = req.query.username;
+    readLimites.modulo_id = req.query.modulo_id 
+
+    if (readLimites.username === "" && readLimites.modulo_id =="") {
+        respuesta = {
+            error: true,
+            codigo: 501,
+            mensaje: "Datos incorrectos",
+        };
+    } else {
+        let limites = [];
+        try{
+
+            limites = await pool.query('SELECT mc.maximo, mc.minimo  FROM `cliente_modulo` AS MC INNER JOIN clientes as c ON c.id = mc.cliente_id INNER JOIN users AS u ON u.cliente_id = c.id WHERE mc.modulo_id = ? AND  u.username = ?', [readLimites.modulo_id,readLimites.username])
+            console.log(limites);
+        } catch (error) {
+
+            console.log(error);
+            respuesta = {
+                error: true,
+                codigo: 501,
+                mensaje: "No se pudo obtener los limites",
+            };
+            res.status(500).send(respuesta);
+            return false;
+        }
+        
+        respuesta = limites;
+    }
+    res.send(respuesta);
+});
+
 module.exports = app;

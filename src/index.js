@@ -61,6 +61,7 @@ app.use(async (req, res, next) => {
 
 //routes
 app.use(require('./routes'))
+app.use(require('./routes/api_datos'))
 app.use(require('./routes/authentication'))
 app.use(require('./routes/administracion'))
 app.use('/monitoreo', require('./routes/monitoreo'))
