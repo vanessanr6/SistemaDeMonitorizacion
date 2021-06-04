@@ -43,6 +43,8 @@ app.get("/usuario_api_add", async function (req, res) {
     }
 
     //Asignando datos user
+    let user = req.query.username.split("@")[0];
+    newUser.username = user;
     newUser.username = req.query.username;
     newUser.password = req.query.password;
     newUser.fullname = req.query.fullname;
@@ -343,6 +345,63 @@ app.get("/limites_modulos", async function (req, res) {
         }
         
         respuesta = limites;
+    }
+    res.send(respuesta);
+});
+
+app.get("/user_api_read", async function (req, res) {
+
+    const readUser = {
+        username : ""
+    };
+
+    respuesta = {
+        error: false,
+        codigo: 200,
+        mensaje: "",
+    };
+
+    if (
+        req.query.username == null 
+    ) {
+        respuesta = {
+            error: true,
+            codigo: 501,
+            mensaje: "Datos indefinidos",
+        };
+        res.status(500).send(respuesta);
+        return false;
+    }
+
+    //Asignando datos user
+    readUser.username = req.query.username;
+
+    if (readUser.username === "") {
+        respuesta = {
+            error: true,
+            codigo: 501,
+            mensaje: "El usuario no puede ser leido",
+        };
+    } else {
+        let users = [];
+        let user = readUser.username.split("@");
+        try{
+
+            users = await pool.query('SELECT * FROM users WHERE username = ?', [user[0]])
+            console.log(users);
+        } catch (error) {
+
+            console.log(error);
+            respuesta = {
+                error: true,
+                codigo: 501,
+                mensaje: "El usuario no ha sido leido",
+            };
+            res.status(500).send(respuesta);
+            return false;
+        }
+        
+        respuesta = users;
     }
     res.send(respuesta);
 });
