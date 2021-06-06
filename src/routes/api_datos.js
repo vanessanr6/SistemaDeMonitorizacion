@@ -45,7 +45,6 @@ app.get("/usuario_api_add", async function (req, res) {
     //Asignando datos user
     let user = req.query.username.split("@")[0];
     newUser.username = user;
-    newUser.username = req.query.username;
     newUser.password = req.query.password;
     newUser.fullname = req.query.fullname;
     newUser.cliente_id = req.query.cliente_id;
@@ -260,7 +259,7 @@ app.get("/ubicacion_api_read", async function (req, res) {
     }
 
     //Asignando datos user
-    readUbicacion.cliente_id = req.query.cliente_id;
+    readUbicacion.cliente_id = req.query.cliente_id.split("@")[0];
 
     if (readUbicacion.cliente_id === "") {
         respuesta = {
@@ -272,7 +271,10 @@ app.get("/ubicacion_api_read", async function (req, res) {
         let users = [];
         try{
 
-            users = await pool.query('SELECT * FROM ubicaciones WHERE cliente_id = ?', [readUbicacion.cliente_id])
+            users = await pool.query(`SELECT u.lat, u.lat FROM ubicaciones u 
+                                        INNER JOIN clientes c on u.cliente_id = c.id 
+                                        INNER JOIN users u2 on c.id = u2.cliente_id 
+                                        WHERE u2.username =  ?`, [readUbicacion.cliente_id]);
             console.log(users);
         } catch (error) {
 
